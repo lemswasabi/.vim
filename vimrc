@@ -24,6 +24,7 @@ nnoremap $ <nop>
 nnoremap gV `[v`]
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 nnoremap <buffer> <F10> :exec '!python -i' shellescape(@%, 1)<cr>
+nnoremap <buffer> <F4> :exec '!pdflatex' shellescape(@%, 1)<cr>
 nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <space> za
 map <C-o> :NERDTreeToggle<CR>
@@ -88,13 +89,14 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
+Plug 'fredkschott/covim'
 
 call plug#end()
 " }}}
 
 " ---Colors---{{{
-" let g:vim_monokai_tasty_italic = 1
-color gruvbox
+let g:gruvbox_italic=1
+colorscheme gruvbox
 syntax enable " enable syntax processing
 let g:gruvbox_contrast_dark='hard'
 set bg=dark
