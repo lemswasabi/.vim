@@ -5,13 +5,16 @@
 set tabstop=4 "number of visual spaces per TAB
 set softtabstop=4 " number of spaces in tab when editing
 set expandtab " tabs are spaces
+set shiftwidth=4
+set smartindent
+set autoindent
 " }}}
 
 "---Folding---{{{
 set foldenable " enable folding
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
-set foldmethod=indent " fold based on indent level
+au FileType python setl foldmethod=indent " fold based on indent level
 " }}}
 
 " ---Mapping--{{{
@@ -34,6 +37,7 @@ nnoremap <leader>em :exec "e " . $MYVIMRC<CR>
 nnoremap <leader>sm :exec "so " . $MYVIMRC<CR>
 
 inoremap jk <ESC>
+inoremap {<CR> {<CR>}<ESC>O
 
 " }}}
 
@@ -90,8 +94,12 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'fredkschott/covim'
+Plug 'enricobacis/vim-airline-clock'
 
 call plug#end()
+
+let g:airline#extensions#clock#auto = 1
+
 " }}}
 
 " ---Colors---{{{
@@ -109,7 +117,7 @@ let g:lightline = {
 
 "---Settings---{{{
 set backspace=indent,eol,start
-set linebreak
+set linebreak 
 set textwidth=80
 " }}}
 
