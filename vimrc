@@ -14,7 +14,7 @@ set shiftwidth=2
 set foldenable " enable folding
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
-au FileType python setl foldmethod=indent " fold based on indent level
+set foldmethod=marker " fold based on indent level
 " }}}
 
 " ---Mapping--{{{
