@@ -2,12 +2,12 @@
 " 24/04/19
 
 " ---Spaces and Tabs{{{
-set tabstop=4 "number of visual spaces per TAB
-set softtabstop=4 " number of spaces in tab when editing
+set tabstop=2 "number of visual spaces per TAB
+"set softtabstop=4 " number of spaces in tab when editing
 set expandtab " tabs are spaces
-set shiftwidth=4
-set smartindent
-set autoindent
+set shiftwidth=2
+"set smartindent
+"set autoindent
 " }}}
 
 "---Folding---{{{
@@ -35,6 +35,7 @@ nnoremap ; :Files<CR>
 nnoremap oo o<Esc>o<Esc>k
 nnoremap <leader>em :exec "e " . $MYVIMRC<CR>
 nnoremap <leader>sm :exec "so " . $MYVIMRC<CR>
+nnoremap <leader>ig :IndentGuidesToggle<CR>
 
 inoremap jk <ESC>
 inoremap {<CR> {<CR>}<ESC>O
@@ -81,7 +82,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'airblade/vim-gitgutter'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
@@ -95,6 +95,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'fredkschott/covim'
 Plug 'enricobacis/vim-airline-clock'
+Plug 'noahfrederick/vim-skeleton'
+Plug 'ap/vim-css-color'
+Plug 'nathanaelkane/vim-indent-guides'
 
 call plug#end()
 
