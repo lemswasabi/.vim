@@ -18,8 +18,9 @@ set foldmethod=marker " fold based on indent level
 " }}}
 
 " ---Mapping--{{{
-let mapleader="," " leader is comma
+let mapleader="," " leader is space
 
+nnoremap <leader>ww :w<cr>
 nnoremap B 0
 nnoremap E $
 nnoremap 0 <nop>
@@ -27,18 +28,29 @@ nnoremap $ <nop>
 nnoremap gV `[v`]
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 nnoremap <buffer> <F10> :exec '!python -i' shellescape(@%, 1)<cr>
-nnoremap <buffer> <F4> :exec '!pdflatex' shellescape(@%, 1)<cr>
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <leader>sb :exec '!swift build'<cr>
+nnoremap <leader>sr :exec '!swift run'<cr>
+nnoremap <F4> :exec '!pdflatex ' . 'main.tex'<cr>
+nnoremap <leader><F4> :exec '!bibtex ' . 'main.aux'<cr>
+nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <space> za
-map <C-o> :NERDTreeToggle<CR>
-nnoremap ; :Files<CR>
+
+nnoremap <leader>ba :badd %<cr>
+
+" fzf
+nnoremap <leader>f :Files<cr>
+nnoremap <leader>bf :Buffers<cr>
+
 nnoremap oo o<Esc>o<Esc>k
-nnoremap <leader>em :exec "e " . $MYVIMRC<CR>
-nnoremap <leader>sm :exec "so " . $MYVIMRC<CR>
-nnoremap <leader>ig :IndentGuidesToggle<CR>
+nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
+nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
+nnoremap <leader>ig :IndentGuidesToggle<cr>
+nnoremap <buffer> <F5> :exec '!swift run'<cr>
+nmap <leader>t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<cr>
+nmap <leader>m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<cr>
 
 inoremap jk <ESC>
-inoremap {<CR> {<CR>}<ESC>O
+inoremap {<cr> {<cr>}<ESC>O
 
 " }}}
 
@@ -57,17 +69,6 @@ set incsearch " search as characters are entered
 set hlsearch " highlight maches
 " }}}
 
-" ---Tmux---{{{
-" allows cursor change in tmux mode
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-" }}} 
-
 " ---Organization---{{{
 set modelines=1
 " }}}
@@ -82,28 +83,28 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'editorconfig/editorconfig-vim'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
-Plug 'enricobacis/vim-airline-clock'
 Plug 'noahfrederick/vim-skeleton'
-Plug 'ap/vim-css-color'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'w0rp/ale'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-let g:airline#extensions#clock#auto = 1
 
 " }}}
 
 " ---Colors---{{{
+"syntax enable
+"set background=dark
+"colorscheme solarized
+"let g:solarized_termcolors=256
 let g:gruvbox_italic=1
 colorscheme gruvbox
 syntax enable " enable syntax processing
@@ -111,7 +112,14 @@ let g:gruvbox_contrast_dark='hard'
 set bg=dark
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
       \ }
 
 " }}}
@@ -120,6 +128,64 @@ let g:lightline = {
 set backspace=indent,eol,start
 set linebreak 
 set textwidth=80
+
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCustomDelimiters = { 
+      \ 'swift': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
+      \ '*/'},
+      \ 'python': { 'left': '#', 'right': ''},
+      \}
+
 " }}}
+
+" ---Floatingterm{{{
+let s:float_term_border_win = 0
+let s:float_term_win = 0
+function! FloatTerm(...)
+  " Configuration
+  let height = float2nr((&lines - 2) * 0.6)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns * 0.6)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+        \ 'relative': 'editor',
+        \ 'row': row - 1,
+        \ 'col': col - 2,
+        \ 'width': width + 4,
+        \ 'height': height + 2,
+        \ 'style': 'minimal'
+        \ }
+  " Terminal Window
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+  let top = "╭" . repeat("─", width + 2). "╮"
+  let mid = "│" . repeat(" ", width + 2) . "│"
+  let bot = "╰" . repeat("─", width + 2) . "╯"
+  let lines = [top] + repeat([mid], height) + [bot]
+  let bbuf = nvim_create_buf(v:false, v:true)
+  call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
+  let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
+  let buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_win = nvim_open_win(buf, v:true, opts)
+  " Styling
+  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:Normal')
+  call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
+  if a:0 == 0
+    terminal
+  else
+    call termopen(a:1)
+  endif
+  startinsert
+  " Close border window when terminal window close
+  autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
+endfunction "}}}
 
 " vim:foldmethod=marker:foldlevel=0
