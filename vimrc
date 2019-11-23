@@ -20,37 +20,42 @@ set foldmethod=marker " fold based on indent level
 " ---Mapping--{{{
 let mapleader="," " leader is space
 
-nnoremap <leader>ww :w<cr>
-nnoremap B 0
-nnoremap E $
-nnoremap 0 <nop>
-nnoremap $ <nop>
-nnoremap gV `[v`]
+"commands
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 nnoremap <buffer> <F10> :exec '!python -i' shellescape(@%, 1)<cr>
 nnoremap <leader>sb :exec '!swift build'<cr>
 nnoremap <leader>sr :exec '!swift run'<cr>
 nnoremap <F4> :exec '!pdflatex ' . 'main.tex'<cr>
 nnoremap <leader><F4> :exec '!bibtex ' . 'main.aux'<cr>
+nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
+nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
+nnoremap <buffer> <F5> :exec '!swift run'<cr>
+nnoremap <leader>cm :!open main.pdf<cr>
+
+"vim
+inoremap jk <ESC>
+nnoremap <leader>ww :w<cr>
+nnoremap B 0
+nnoremap E $
+nnoremap 0 <nop>
+nnoremap $ <nop>
+nnoremap gV `[v`]
 nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <space> za
-
 nnoremap <leader>ba :badd %<cr>
+
+"editing
+inoremap {<cr> {<cr>}<ESC>O
+nnoremap oo o<Esc>o<Esc>k
+
+"settings
+nmap <leader>t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<cr>
+nmap <leader>m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<cr>
+nnoremap <leader>ig :IndentGuidesToggle<cr>
 
 " fzf
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>bf :Buffers<cr>
-
-nnoremap oo o<Esc>o<Esc>k
-nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
-nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
-nnoremap <leader>ig :IndentGuidesToggle<cr>
-nnoremap <buffer> <F5> :exec '!swift run'<cr>
-nmap <leader>t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<cr>
-nmap <leader>m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<cr>
-
-inoremap jk <ESC>
-inoremap {<cr> {<cr>}<ESC>O
 
 " }}}
 
@@ -83,6 +88,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'lervag/vimtex'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -92,8 +98,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'noahfrederick/vim-skeleton'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'w0rp/ale'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
+Plug 'sirver/ultisnips'
 
 call plug#end()
 
@@ -136,6 +143,8 @@ let g:NERDCustomDelimiters = {
       \ '*/'},
       \ 'python': { 'left': '#', 'right': ''},
       \}
+
+let b:ale_linters = ['swiftlint']
 
 " }}}
 
