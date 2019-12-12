@@ -18,22 +18,25 @@ set foldmethod=marker " fold based on indent level
 " }}}
 
 " ---Mapping--{{{
-let mapleader="," " leader is space
+let mapleader="," " leader is comma
+let maplocalleader=";" " local leader is semi collon
 
 "commands
+nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
+nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 nnoremap <buffer> <F10> :exec '!python -i' shellescape(@%, 1)<cr>
 nnoremap <leader>sb :exec '!swift build'<cr>
 nnoremap <leader>sr :exec '!swift run'<cr>
-nnoremap <F4> :exec '!pdflatex ' . 'main.tex'<cr>
-nnoremap <leader><F4> :exec '!bibtex ' . 'main.aux'<cr>
-nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
-nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
 nnoremap <buffer> <F5> :exec '!swift run'<cr>
-nnoremap <leader>cm :!open main.pdf<cr>
+nnoremap <F8> :w<cr>:!gcc main.c -o main && ./main<cr>
+
+"bash script
+nnoremap <F2> :!./%<cr>
 
 "vim
 inoremap jk <ESC>
+tnoremap jk <esc>
 nnoremap <leader>ww :w<cr>
 nnoremap B 0
 nnoremap E $
@@ -43,6 +46,9 @@ nnoremap gV `[v`]
 nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <space> za
 nnoremap <leader>ba :badd %<cr>
+nnoremap <leader>yp "+yip
+nnoremap <leader>ap gqip
+nnoremap <leader>qq :q<cr>
 
 "editing
 inoremap {<cr> {<cr>}<ESC>O
@@ -56,6 +62,18 @@ nnoremap <leader>ig :IndentGuidesToggle<cr>
 " fzf
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>bf :Buffers<cr>
+nnoremap <leader>l :Lines<cr>
+
+" latex
+nnoremap <leader>cw :!./texcount.pl -total -inc main.tex<cr>
+nnoremap <localleader>cw :VimtexCountWords<cr>
+nnoremap <F4> :w<cr>:!pdflatex main.tex<cr>
+nnoremap <localleader><F4> :w<cr>:!pdflatex main.tex<cr>:!open main.pdf<cr><cr>
+nnoremap <leader><F4> :exec '!bibtex ' . 'main.aux'<cr>
+nnoremap <leader>vp :!open main.pdf<cr><cr>
+
+" git
+nnoremap <leader>gs :G<cr>
 
 " }}}
 
@@ -101,6 +119,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -142,6 +161,8 @@ let g:NERDCustomDelimiters = {
       \ 'swift': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
       \ '*/'},
       \ 'python': { 'left': '#', 'right': ''},
+      \ 'c': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
+      \ '*/'},
       \}
 
 let b:ale_linters = ['swiftlint']
