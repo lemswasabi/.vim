@@ -1,14 +1,5 @@
 "© Leminh Nguyen
-" 24/04/19
-
-" ---Spaces and Tabs{{{
-set tabstop=2 "number of visual spaces per TAB
-"set softtabstop=4 " number of spaces in tab when editing
-set expandtab " tabs are spaces
-set shiftwidth=2
-"set smartindent
-"set autoindent
-" }}}
+" 11/03/20
 
 "---Folding---{{{
 set foldenable " enable folding
@@ -25,7 +16,7 @@ let maplocalleader=";" " local leader is semi collon
 nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
 nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
-nnoremap <buffer> <F10> :exec '!python -i' shellescape(@%, 1)<cr>
+nnoremap <buffer> <F10> :exec'!python -i' shellescape(@%, 1)<cr>
 nnoremap <leader>sb :exec '!swift build'<cr>
 nnoremap <leader>sr :exec '!swift run'<cr>
 nnoremap <buffer> <F5> :exec '!swift run'<cr>
@@ -55,8 +46,6 @@ inoremap {<cr> {<cr>}<ESC>O
 nnoremap oo o<Esc>o<Esc>k
 
 "settings
-nmap <leader>t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<cr>
-nmap <leader>m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<cr>
 nnoremap <leader>ig :IndentGuidesToggle<cr>
 
 " fzf
@@ -74,6 +63,13 @@ nnoremap <leader>vp :!open main.pdf<cr><cr>
 
 " git
 nnoremap <leader>gs :G<cr>
+
+" filetype
+nnoremap <leader>F :exec ":tabnew ~/.vim/ftplugin/" . &filetype . ".vim"<cr>
+
+" skeleton
+nnoremap <leader>T :exec ":vs ~/.vim/templates/skel." . &filetype<cr>
+
 
 " }}}
 
@@ -218,4 +214,4 @@ function! FloatTerm(...)
   autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
 endfunction "}}}
 
-" vim:foldmethod=marker:foldlevel=0
+" vim:foldmethod=marker:foldlevel=0 
