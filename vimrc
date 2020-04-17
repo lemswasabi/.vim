@@ -21,6 +21,8 @@ nnoremap <leader>sb :exec '!swift build'<cr>
 nnoremap <leader>sr :exec '!swift run'<cr>
 nnoremap <buffer> <F5> :exec '!swift run'<cr>
 nnoremap <F8> :w<cr>:!gcc main.c -o main && ./main<cr>
+nnoremap <leader><F1> :!javac %<cr>
+nnoremap <localleader><F1> :!java %:r<cr>
 
 "bash script
 nnoremap <F2> :!./%<cr>
@@ -38,12 +40,19 @@ nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <space> za
 nnoremap <leader>ba :badd %<cr>
 nnoremap <leader>yp "+yip
-nnoremap <leader>ap gqip
+nnoremap <leader>wp gqip
 nnoremap <leader>qq :q<cr>
+map <C-n> :NERDTreeToggle<cr>
+nnoremap <localleader>pi :PlugInstall<cr>
 
 "editing
 inoremap {<cr> {<cr>}<ESC>O
-nnoremap oo o<Esc>o<Esc>k
+" nnoremap oo o<Esc>o<Esc>k
+nnoremap <leader>oo o<esc>o<esc>k
+" nnoremap <leader>wp vipgq
+
+"ultisnips
+nnoremap <localleader>us :UltiSnipsEdit<cr>
 
 "settings
 nnoremap <leader>ig :IndentGuidesToggle<cr>
@@ -70,6 +79,14 @@ nnoremap <leader>F :exec ":tabnew ~/.vim/ftplugin/" . &filetype . ".vim"<cr>
 " skeleton
 nnoremap <leader>T :exec ":vs ~/.vim/templates/skel." . &filetype<cr>
 
+" tmux mapping
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <localleader>h :TmuxNavigateLeft<cr>
+nnoremap <silent> <localleader>j :TmuxNavigateDown<cr>
+nnoremap <silent> <localleader>k :TmuxNavigateUp<cr>
+nnoremap <silent> <localleader>l :TmuxNavigateRight<cr>
+nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 
 " }}}
 
@@ -116,6 +133,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdtree'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -213,5 +234,14 @@ function! FloatTerm(...)
   " Close border window when terminal window close
   autocmd TermClose * ++once :bd! | call nvim_win_close(s:float_term_border_win, v:true)
 endfunction "}}}
+
+" ---TMUX---{{{
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
+"
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
+"}}}
 
 " vim:foldmethod=marker:foldlevel=0 
