@@ -44,6 +44,7 @@ nnoremap <leader>wp gqip
 nnoremap <leader>qq :q<cr>
 map <C-n> :NERDTreeToggle<cr>
 nnoremap <localleader>pi :PlugInstall<cr>
+nnoremap <localleader>rt :%s/\s\+$//e<cr>
 
 "editing
 inoremap {<cr> {<cr>}<ESC>O
@@ -74,10 +75,10 @@ nnoremap <leader>vp :!open main.pdf<cr><cr>
 nnoremap <leader>gs :G<cr>
 
 " filetype
-nnoremap <leader>F :exec ":tabnew ~/.vim/ftplugin/" . &filetype . ".vim"<cr>
+nnoremap <localleader>F :exec ":tabnew ~/.vim/ftplugin/" . &filetype . ".vim"<cr>
 
 " skeleton
-nnoremap <leader>T :exec ":vs ~/.vim/templates/skel." . &filetype<cr>
+nnoremap <localleader>S :exec ":vs ~/.vim/templates/skel." . &filetype<cr>
 
 " tmux mapping
 let g:tmux_navigator_no_mappings = 1
@@ -129,7 +130,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'noahfrederick/vim-skeleton'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-fugitive'
@@ -137,6 +137,7 @@ Plug 'preservim/nerdtree'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
+Plug 'daeyun/vim-matlab'
 
 call plug#end()
 
@@ -183,6 +184,7 @@ let g:NERDCustomDelimiters = {
       \}
 
 let b:ale_linters = ['swiftlint']
+let g:polyglot_disabled = ['latex']
 
 " }}}
 
