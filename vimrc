@@ -130,14 +130,12 @@ Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'noahfrederick/vim-skeleton'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'dense-analysis/ale'
 Plug 'sirver/ultisnips'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
-Plug 'daeyun/vim-matlab'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
@@ -155,9 +153,10 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
+      \   'cocstatus': 'coc#status',
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
@@ -180,6 +179,11 @@ let g:NERDCustomDelimiters = {
       \}
 
 let g:polyglot_disabled = ['latex']
+
+" python link
+let g:python_host_prog  = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 " }}}
 
 " ---TMUX---{{{
@@ -191,11 +195,13 @@ let g:tmux_navigator_save_on_switch = 2
 let g:tmux_navigator_disable_when_zoomed = 1
 "}}}
 
-" vim:foldmethod=marker:foldlevel=0 
-
+"---Tags---{{{
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
+"}}}
+
+" vim:foldmethod=marker:foldlevel=0 
