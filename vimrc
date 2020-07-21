@@ -38,7 +38,7 @@ nnoremap $ <nop>
 nnoremap gV `[v`]
 nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <space> za
-nnoremap <leader>ba :badd %<cr>
+" nnoremap <leader>ba :badd %<cr>
 nnoremap <leader>yp "+yip
 nnoremap <leader>wp gqip
 nnoremap <leader>qq :q<cr>
@@ -120,46 +120,50 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'lervag/vimtex'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdcommenter'
-Plug 'sheerun/vim-polyglot'
-Plug 'morhetz/gruvbox'
-Plug 'noahfrederick/vim-skeleton'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'sirver/ultisnips'
-Plug 'tpope/vim-fugitive'
-Plug 'preservim/nerdtree'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if has('nvim')
+  Plug 'morhetz/gruvbox'
+  Plug 'itchyny/lightline.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'preservim/nerdtree'
+	Plug 'scrooloose/nerdcommenter'
+	Plug 'nathanaelkane/vim-indent-guides'
+	Plug 'noahfrederick/vim-skeleton'
+	Plug 'tpope/vim-surround'
+	Plug 'sheerun/vim-polyglot'
+	Plug 'lervag/vimtex'
+	Plug 'sirver/ultisnips'
+	Plug 'tpope/vim-fugitive'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'editorconfig/editorconfig-vim'
+endif
 
 call plug#end()
-
 
 " }}}
 
 " ---Colors---{{{
-let g:gruvbox_italic=1
-colorscheme gruvbox
 syntax enable " enable syntax processing
-let g:gruvbox_contrast_dark='hard'
 set bg=dark
 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
+if has('nvim')
+	colorscheme gruvbox
+	let g:gruvbox_italic=1
+	let g:gruvbox_contrast_dark='hard'
+	set bg=dark
+	let g:lightline = {
+				\ 'colorscheme': 'wombat',
+				\ 'active': {
+				\   'left': [ [ 'mode', 'paste' ],
+				\             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+				\ },
+				\ 'component_function': {
+				\   'cocstatus': 'coc#status',
+				\   'gitbranch': 'fugitive#head'
+				\ },
+				\ }
+endif
 
 " }}}
 
@@ -168,32 +172,25 @@ set backspace=indent,eol,start
 set linebreak 
 set textwidth=80
 
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCustomDelimiters = { 
-      \ 'swift': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
-      \ '*/'},
-      \ 'python': { 'left': '#', 'right': ''},
-      \ 'c': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
-      \ '*/'},
-      \}
+if has('nvim')
+	let g:NERDSpaceDelims = 1
+	let g:NERDDefaultAlign = 'left'
+	let g:NERDCustomDelimiters = { 
+				\ 'swift': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
+				\ '*/'},
+				\ 'python': { 'left': '#', 'right': ''},
+				\ 'c': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt':
+				\ '*/'},
+				\}
 
-let g:polyglot_disabled = ['latex']
+	let g:polyglot_disabled = ['latex']
 
-" python link
-let g:python_host_prog  = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
+	" python link
+	let g:python_host_prog  = '/usr/bin/python2'
+	let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 
 " }}}
-
-" ---TMUX---{{{
-
-" Write all buffers before navigating from Vim to tmux pane
-let g:tmux_navigator_save_on_switch = 2
-"
-" Disable tmux navigator when zooming the Vim pane
-let g:tmux_navigator_disable_when_zoomed = 1
-"}}}
 
 "---Tags---{{{
 " Load all plugins now.
