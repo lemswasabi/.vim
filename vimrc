@@ -38,7 +38,6 @@ nnoremap $ <nop>
 nnoremap gV `[v`]
 nnoremap <leader><space> :nohlsearch<cr>
 nnoremap <space> za
-" nnoremap <leader>ba :badd %<cr>
 nnoremap <leader>yp "+yip
 nnoremap <leader>wp gqip
 nnoremap <leader>qq :q<cr>
@@ -48,9 +47,7 @@ nnoremap <localleader>rt :%s/\s\+$//e<cr>
 
 "editing
 inoremap {<cr> {<cr>}<ESC>O
-" nnoremap oo o<Esc>o<Esc>k
 nnoremap <leader>oo o<esc>o<esc>k
-" nnoremap <leader>wp vipgq
 
 "ultisnips
 nnoremap <localleader>us :UltiSnipsEdit<cr>
@@ -79,15 +76,6 @@ nnoremap <localleader>F :exec ":tabnew ~/.vim/ftplugin/" . &filetype . ".vim"<cr
 
 " skeleton
 nnoremap <localleader>S :exec ":vs ~/.vim/templates/skel." . &filetype<cr>
-
-" tmux mapping
-let g:tmux_navigator_no_mappings = 1
-
-nnoremap <silent> <localleader>h :TmuxNavigateLeft<cr>
-nnoremap <silent> <localleader>j :TmuxNavigateDown<cr>
-nnoremap <silent> <localleader>k :TmuxNavigateUp<cr>
-nnoremap <silent> <localleader>l :TmuxNavigateRight<cr>
-nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
 
 " }}}
 
