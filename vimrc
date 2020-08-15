@@ -16,7 +16,7 @@ let maplocalleader=";" " local leader is semi collon
 nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
 nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
-nnoremap <buffer> <F10> :exec'!python -i' shellescape(@%, 1)<cr>
+nnoremap <buffer> <F10> :exec'!python3 -i' shellescape(@%, 1)<cr>
 nnoremap <leader>sb :exec '!swift build'<cr>
 nnoremap <leader>sr :exec '!swift run'<cr>
 nnoremap <buffer> <F5> :exec '!swift run'<cr>
@@ -151,6 +151,8 @@ if has('nvim')
 				\   'gitbranch': 'fugitive#head'
 				\ },
 				\ }
+  " Use auocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 endif
 
 " }}}
