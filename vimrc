@@ -15,14 +15,15 @@ let maplocalleader=";" " local leader is semi collon
 "commands
 nnoremap <leader>em :exec "e " . $HOME . "/.vim/vimrc"<cr>
 nnoremap <leader>sm :exec "so " . $MYVIMRC<cr>
-nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
-nnoremap <buffer> <F10> :exec'!python3 -i' shellescape(@%, 1)<cr>
+nnoremap <buffer> <F9> :!python %<cr>
+nnoremap <buffer> <F10> :exec'!python -i' shellescape(@%, 1)<cr>
 nnoremap <leader>sb :exec '!swift build'<cr>
 nnoremap <leader>sr :exec '!swift run'<cr>
 nnoremap <buffer> <F5> :exec '!swift run'<cr>
 nnoremap <F8> :w<cr>:!gcc main.c -o main && ./main<cr>
 nnoremap <leader><F1> :!javac %<cr>
 nnoremap <localleader><F1> :!java %:r<cr>
+" nnoremap <leader>cw :exec '!cat % | wc -w'<cr>
 
 "bash script
 nnoremap <F2> :!./%<cr>
@@ -61,12 +62,12 @@ nnoremap <leader>bf :Buffers<cr>
 nnoremap <leader>l :Lines<cr>
 
 " latex
-nnoremap <leader>cw :!./texcount.pl -total -inc main.tex<cr>
+" nnoremap <leader>cw :!./texcount.pl -total -inc main.tex<cr>
 nnoremap <localleader>cw :VimtexCountWords<cr>
 nnoremap <F4> :w<cr>:!pdflatex main.tex<cr>
-nnoremap <localleader><F4> :w<cr>:!pdflatex main.tex<cr>:!open main.pdf<cr><cr>
-nnoremap <leader><F4> :exec '!bibtex ' . 'main.aux'<cr>
-nnoremap <leader>vp :!open main.pdf<cr><cr>
+" nnoremap <localleader><F4> :w<cr>:!pdflatex main.tex<cr>:!open main.pdf<cr><cr>
+nnoremap <leader><F4> :!bibtex main.aux<cr>
+nnoremap <leader>vp :!zathura main.pdf<cr><cr>
 
 " git
 nnoremap <leader>gs :G<cr>
@@ -111,8 +112,8 @@ call plug#begin('~/.vim/plugged')
 if has('nvim')
   Plug 'morhetz/gruvbox'
   Plug 'itchyny/lightline.vim'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'preservim/nerdtree'
 	Plug 'scrooloose/nerdcommenter'
@@ -160,7 +161,7 @@ endif
 "---Settings---{{{
 set backspace=indent,eol,start
 set linebreak 
-set textwidth=80
+" set textwidth=80
 
 if has('nvim')
 	let g:NERDSpaceDelims = 1
@@ -173,12 +174,14 @@ if has('nvim')
 				\ '*/'},
 				\}
 
-	let g:polyglot_disabled = ['latex']
+	" let g:polyglot_disabled = ['latex']
 
 	" python link
 	let g:python_host_prog  = '/usr/bin/python2'
-	let g:python3_host_prog = '/usr/local/bin/python3'
+	let g:python3_host_prog = '/usr/bin/python3'
 endif
+
+  let g:tex_flavor = 'latex'
 
 " }}}
 
