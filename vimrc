@@ -65,6 +65,7 @@ nnoremap <leader>l :Lines<cr>
 " nnoremap <leader>cw :!./texcount.pl -total -inc main.tex<cr>
 nnoremap <localleader>cw :VimtexCountWords<cr>
 nnoremap <F4> :w<cr>:!pdflatex main.tex<cr>
+nnoremap <localleader><F4> :w<cr>:!xelatex main.tex<cr>
 " nnoremap <localleader><F4> :w<cr>:!pdflatex main.tex<cr>:!open main.pdf<cr><cr>
 nnoremap <leader><F4> :!bibtex main.aux<cr>
 nnoremap <leader>vp :!zathura main.pdf<cr><cr>
@@ -101,15 +102,15 @@ set modelines=1
 
 " ---Plugins---{{{
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-
 if has('nvim')
+	if empty(glob('~/.vim/autoload/plug.vim'))
+		silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+			\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	endif
+
+	call plug#begin('~/.vim/plugged')
+
   Plug 'morhetz/gruvbox'
   Plug 'itchyny/lightline.vim'
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -126,9 +127,11 @@ if has('nvim')
 	Plug 'tpope/vim-fugitive'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'editorconfig/editorconfig-vim'
+
+	call plug#end()
+
 endif
 
-call plug#end()
 
 " }}}
 
@@ -179,9 +182,10 @@ if has('nvim')
 	" python link
 	let g:python_host_prog  = '/usr/bin/python2'
 	let g:python3_host_prog = '/usr/bin/python3'
+	let g:tex_flavor = 'latex'
+	let g:vimtex_compiler_progname = 'nvr'
 endif
 
-  let g:tex_flavor = 'latex'
 
 " }}}
 
