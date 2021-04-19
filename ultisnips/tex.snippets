@@ -1,0 +1,14 @@
+snippet be "\begin{...} ___ \end{}" b
+\begin{$1}
+	${VISUAL}$0
+\end{$1}
+endsnippet
+
+snippet includegraphics "create figure containing the graphic" b
+\begin{figure}
+	\centering
+	\includegraphics[${4:width=$6\\${5:columnwidth}}]{$3}
+	\caption{$1}
+	\label{fig:$2}
+\end{figure}
+endsnippet
