@@ -184,6 +184,9 @@ if has('nvim')
 	let g:python3_host_prog = '/usr/bin/python3'
 	let g:tex_flavor = 'latex'
 	let g:vimtex_compiler_progname = 'nvr'
+
+	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = '~/.vim/ultisnips'
+
 endif
 
 
