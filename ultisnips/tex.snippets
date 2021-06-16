@@ -4,10 +4,36 @@ snippet be "\begin{...} ___ \end{}" b
 \end{$1}
 endsnippet
 
+snippet 't(i|t)' "ti,tt -> \textit{___},\texttt{___}" ir
+`!p snip.rv = '\\text' + match.group(1) + 't'`{${1:${VISUAL}}}
+endsnippet
+
+snippet 'be(\w+\*?)' "\begin{} ___ \end{}" br
+\begin{`!p snip.rv = match.group(1)`}
+	${VISUAL}$0
+\end{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet tb "\textbf{___}" i
+\textbf{${1:${VISUAL}}}
+endsnippet
+
+snippet sf "\textsf{___}" i
+\textsf{${1:${VISUAL}}}
+endsnippet
+
+snippet >= "\geq" i
+\geq 
+endsnippet
+
+snippet <= "\leq" i
+\leq 
+endsnippet
+
 snippet includegraphics "create figure containing the graphic" b
-\begin{figure}
+\begin{figure}[ht]
 	\centering
-	\includegraphics[${4:width=$6\\${5:columnwidth}}]{$3}
+	\includegraphics[width=\linewidth]{$3}
 	\caption{$1}
 	\label{fig:$2}
 \end{figure}

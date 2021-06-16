@@ -1,0 +1,29 @@
+snippet timeit "get timeit"
+s = time.time()
+$0
+e = time.time()
+print(f'Took {e-s} seconds.')
+endsnippet
+
+snippet dtimeit "get timeit decorator"
+def timeit(f):
+	import time
+	def wrapper():
+		s = time.time()
+		f()
+		e = time.time()
+		print(f'Took {e-s} seconds.')
+	return wrapper
+endsnippet
+
+snippet dtimeitargs "get timeit decorator with args"
+def timeit(f):
+	import time
+	def wrapper(*args, **kwargs):
+		s = time.time()
+		r = f(*args, **kwargs)
+		e = time.time()
+		print(f'Took {e-s} seconds.')
+		return r
+	return wrapper
+endsnippet

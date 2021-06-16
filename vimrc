@@ -65,6 +65,7 @@ nnoremap <leader>l :Lines<cr>
 " nnoremap <leader>cw :!./texcount.pl -total -inc main.tex<cr>
 nnoremap <localleader>cw :VimtexCountWords<cr>
 nnoremap <F4> :w<cr>:!pdflatex main.tex<cr>
+nnoremap <F3> :w<cr>:!pdflatex %<cr>
 nnoremap <localleader><F4> :w<cr>:!xelatex main.tex<cr>
 " nnoremap <localleader><F4> :w<cr>:!pdflatex main.tex<cr>:!open main.pdf<cr><cr>
 nnoremap <leader><F4> :!bibtex main.aux<cr>
@@ -164,6 +165,7 @@ endif
 "---Settings---{{{
 set backspace=indent,eol,start
 set linebreak 
+set mouse=a
 " set textwidth=80
 
 if has('nvim')
@@ -185,7 +187,7 @@ if has('nvim')
 	let g:tex_flavor = 'latex'
 	let g:vimtex_compiler_progname = 'nvr'
 
-	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = '~/.vim/ultisnips'
+	let g:UltiSnipsSnippetDirectories = [ '~/.vim/ultisnips' ]
 
 endif
 
