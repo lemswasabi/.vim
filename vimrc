@@ -72,13 +72,17 @@ nnoremap <leader><F4> :!bibtex main.aux<cr>
 nnoremap <leader>vp :!zathura main.pdf<cr><cr>
 
 " git
-nnoremap <leader>gs :G<cr>
+" nnoremap <leader>gs :G<cr>
 
 " filetype
 nnoremap <localleader>F :exec ":tabnew ~/.vim/ftplugin/" . &filetype . ".vim"<cr>
 
 " skeleton
 nnoremap <localleader>S :exec ":vs ~/.vim/templates/skel." . &filetype<cr>
+
+" coc-nvim
+nnoremap gd :call CocActionAsync('jumpDefinition')<cr>
+nnoremap gh :call CocActionAsync('doHover')<cr>
 
 " }}}
 
