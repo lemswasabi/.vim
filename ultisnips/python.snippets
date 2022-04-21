@@ -27,3 +27,32 @@ def timeit(f):
 		return r
 	return wrapper
 endsnippet
+
+
+snippet def "function definition"
+def $0():
+	"""
+	Args:
+		-
+	Returns:
+	"""
+	pass
+
+endsnippet
+
+snippet 'copyright(\w+)' "copyright notice" br
+#
+#  Created by lemswasabi on `!p import datetime
+snip.rv = datetime.datetime.now().strftime("%d/%m/%Y")`.
+#  Copyright © `!p import datetime
+snip.rv = datetime.datetime.now().strftime("%Y")` `!p snip.rv = match.group(1)`. All rights reserved.
+#
+endsnippet
+
+snippet 'f=(\w+)' "debug pring" br
+print(f"{`!p snip.rv = match.group(1)`=}")
+endsnippet
+
+snippet psb "python shebang"
+#!/usr/bin/env python3
+endsnippet

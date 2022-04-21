@@ -1,0 +1,8 @@
+snippet 'copyright(\w+)' "copyright notice" br
+//
+//  Created by lemswasabi on `!p import datetime
+snip.rv = datetime.datetime.now().strftime("%d/%m/%Y")`.
+//  Copyright © `!p import datetime
+snip.rv = datetime.datetime.now().strftime("%Y")` `!p snip.rv = match.group(1)`. All rights reserved.
+//
+endsnippet
