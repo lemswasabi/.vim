@@ -73,6 +73,7 @@ nnoremap <localleader><F4> :w<cr>:!xelatex main.tex<cr>
 " nnoremap <localleader><F4> :w<cr>:!pdflatex main.tex<cr>:!open main.pdf<cr><cr>
 nnoremap <leader><F4> :!bibtex main.aux<cr>
 nnoremap <leader><F3> :!bibtex %:r.aux<cr>
+nnoremap <localleader><F3> :!biber main.bcf<cr>
 nnoremap <leader>vp :!zathura main.pdf<cr><cr>
 
 " git
@@ -137,6 +138,7 @@ if has('nvim')
 	Plug 'tpope/vim-fugitive'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'editorconfig/editorconfig-vim'
+	Plug 'andrewradev/splitjoin.vim'
 
 	call plug#end()
 
@@ -175,7 +177,7 @@ endif
 set backspace=indent,eol,start
 set linebreak 
 set mouse=a
-" set textwidth=80
+set colorcolumn=80
 
 if has('nvim')
 	let g:NERDSpaceDelims = 1
@@ -198,6 +200,7 @@ if has('nvim')
 
 	let g:UltiSnipsSnippetDirectories = [ '~/.vim/ultisnips' ]
 	let g:UltiSnipsExpandTrigger='<tab>'
+	let g:splitjoin_python_brackets_on_separate_lines = 1
 
 endif
 
